@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "..\\web-ui"
+		},
+		{
+			"path": "..\\web-api"
+		},
+		{
+			"path": "..\\fullstack-engineer-exercise-1"
+		},
+		{
+			"path": "..\\mui-examples\\material-ui"
+		}
+	],
+	"settings": {}
+}
