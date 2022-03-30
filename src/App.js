@@ -25,7 +25,8 @@ class App extends React.Component {
       error: null,
       isLoaded: false,
       pokemon: {},
-      score: -1
+      streak: -1,
+      question: ""
     };
     this.loadPokemon = this.loadPokemon.bind(this);
   }
@@ -40,18 +41,20 @@ class App extends React.Component {
     .then(
       (res) => {
         let items = {}
+        
         //Create key value pair of name and default sprite
         for (let i = 0; i < res.length; i++){
           items[i] = {}
           items[i]['name'] = res[i]['name']
           items[i]['sprite'] = res[i]['sprites']['front_default']
         }
-        console.log(this)
-        let temp = this.state.score + 1;
+
+        let temp = this.state.streak + 1;
         this.setState({
           isLoaded: true,
           pokemon: items,
-          score: temp
+          streak: temp,
+          question: this.randomizePokemon(items)
         });
       },
       // Note: it's important to handle errors here
@@ -73,15 +76,28 @@ class App extends React.Component {
   capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
+
   randomizePokemon(pokemon){
     var keys = Object.keys(pokemon);
     return pokemon[keys[ keys.length * Math.random() << 0]];
   }
 
+  checkPokemon(pokemon){
+    console.log(pokemon, this.state.question.name)
+    if (pokemon === this.state.question.name){
+      this.loadPokemon()
+    }
+    else{
+      this.refreshPage()
+    }
+
+  }
+
   render() {
     let pokemon = this.state.pokemon
-    let question = this.randomizePokemon(pokemon)
-    if (question !== undefined){
+   // let question = this.randomizePokemon(pokemon)
+    console.log(this.state);
+    if (this.state.question !== undefined && this.state.question !== ""){
       return (
         <header className="App-header">
           <Container sx={{ py: 8 }} maxWidth="md">
@@ -92,7 +108,7 @@ class App extends React.Component {
               align="center"
               color="white"
             >
-            Which one is {this.capitalize(question.name)}? Score: {this.state.score}
+            Which one is {this.capitalize(this.state.question.name)}? Streak: {this.state.streak}
             </Typography>
             <Grid container spacing={4}>
               {Object.keys(pokemon).map((key, index) => (
@@ -100,7 +116,7 @@ class App extends React.Component {
                     <Avatar
                       src={pokemon[key].sprite}
                       sx={{ width: 256, height: 256 }}
-                      onClick={this.loadPokemon}
+                      onClick={() => this.checkPokemon(pokemon[key].name)}
                     />
                 </Grid>
               ))}
