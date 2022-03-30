@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
+import Avatar from '@mui/material/Avatar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
@@ -84,24 +84,19 @@ class App extends React.Component {
             <Grid container spacing={4}>
               {Object.keys(pokemon).map((key, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
-                  <Card
-                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                  >
-                    <CardMedia
-                      component="img"
-                      image={pokemon[key].sprite}
-                      alt={pokemon[key].name}
-
+                    <Avatar
+                      src={pokemon[key].sprite}
+                      sx={{ width: 256, height: 256 }}
                     />
-                  </Card>
                 </Grid>
               ))}
             </Grid>
+            
           </Container>
         </header>
       
       );
-                    }
+      }
       else{
         return <span></span>
       }
