@@ -29,7 +29,7 @@
 }
 .MuiAvatar-root {
   background-color: #282c34;
-  background-image: url('/src/Pokeball.png');
+  background-image: url('/src/images/Pokeball.png');
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center; /* Center the image */
