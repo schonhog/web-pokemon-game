@@ -27,7 +27,8 @@ class App extends React.Component {
       pokemon: {},
       streak: -1,
       question: "",
-      difficulty: 2
+      //default difficulty 
+      difficulty: 6
     };
     this.loadPokemon = this.loadPokemon.bind(this);
   }
@@ -37,7 +38,7 @@ class App extends React.Component {
 
   loadPokemon(){
     let pokemonIds = []
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < this.state.difficulty; i++) {
       pokemonIds.push((Math.floor(Math.random() * 898) + 1))
     }
     Promise.all(pokemonIds.map(id => 
@@ -94,7 +95,14 @@ class App extends React.Component {
     else{
       this.refreshPage()
     }
+  }
 
+  changeDifficulty(difficulty){
+    console.log(difficulty)
+    this.state.difficulty = difficulty
+    //reset streak count
+    this.state.streak = -1
+    this.loadPokemon()
   }
 
   render() {
@@ -103,13 +111,13 @@ class App extends React.Component {
       return (
         <header className="App-header">
         <Toolbar sx={{ flexWrap: 'wrap' }}>
-          <Button href="#" variant="outlined" color="success" sx={{ my: 1, mx: 1.5 }}>
+          <Button onClick={() => this.changeDifficulty("3")} variant="outlined" color="success" sx={{ my: 1, mx: 1.5 }}>
             Easy
           </Button>
-          <Button href="#" variant="outlined" color="primary" sx={{ my: 1, mx: 1.5 }}>
+          <Button onClick={() => this.changeDifficulty("6")}  href="#" variant="outlined" color="primary" sx={{ my: 1, mx: 1.5 }}>
             Medium
           </Button>
-          <Button href="#" variant="outlined" color="error" sx={{ my: 1, mx: 1.5 }}>
+          <Button onClick={() => this.changeDifficulty("9")}  href="#" variant="outlined" color="error" sx={{ my: 1, mx: 1.5 }}>
             Hard
           </Button>
         </Toolbar>
@@ -122,9 +130,7 @@ class App extends React.Component {
               font=""
             >
             Which one is {this.capitalize(this.state.question.name)}? Streak: {this.state.streak}
-            
-            </Typography>
-            
+            </Typography>     
             <Grid container spacing={4}>
               {Object.keys(pokemon).map((key, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
