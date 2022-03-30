@@ -85,7 +85,7 @@ class App extends React.Component {
 
   randomizePokemon(pokemon){
     var keys = Object.keys(pokemon);
-    return pokemon[keys[ keys.length * Math.random() << 0]];
+    return pokemon[keys[Math.floor(Math.random()*keys.length)]];
   }
 
   checkPokemon(pokemon){
