@@ -35,8 +35,12 @@ class App extends React.Component {
   }
 
   loadPokemon(){
-    Promise.all([1, 2, 3].map(id => 
-      fetch('https://pokeapi.co/api/v2/pokemon/' + (Math.floor(Math.random() * 898) + 1)).then(res => res.json()),
+    let pokemonIds = []
+    for (let i = 0; i < 6; i++) {
+      pokemonIds.push((Math.floor(Math.random() * 898) + 1))
+    }
+    Promise.all(pokemonIds.map(id => 
+      fetch('https://pokeapi.co/api/v2/pokemon/' + id).then(res => res.json()),
     ))
     .then(
       (res) => {
@@ -103,10 +107,11 @@ class App extends React.Component {
           <Container sx={{ py: 8 }} maxWidth="md">
            
             <Typography
-              component="h1"
-              variant="h2"
+              component="h3"
+              variant="h3"
               align="center"
               color="white"
+              font=""
             >
             Which one is {this.capitalize(this.state.question.name)}? Streak: {this.state.streak}
             </Typography>
