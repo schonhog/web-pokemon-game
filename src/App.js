@@ -15,7 +15,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import Menu from '@mui/material/Menu';
+import Link from '@mui/material/Link';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +26,8 @@ class App extends React.Component {
       isLoaded: false,
       pokemon: {},
       streak: -1,
-      question: ""
+      question: "",
+      difficulty: 2
     };
     this.loadPokemon = this.loadPokemon.bind(this);
   }
@@ -86,7 +88,6 @@ class App extends React.Component {
   }
 
   checkPokemon(pokemon){
-    console.log(pokemon, this.state.question.name)
     if (pokemon === this.state.question.name){
       this.loadPokemon()
     }
@@ -98,13 +99,21 @@ class App extends React.Component {
 
   render() {
     let pokemon = this.state.pokemon
-   // let question = this.randomizePokemon(pokemon)
-    console.log(this.state);
     if (this.state.question !== undefined && this.state.question !== ""){
       return (
         <header className="App-header">
+        <Toolbar sx={{ flexWrap: 'wrap' }}>
+          <Button href="#" variant="outlined" color="success" sx={{ my: 1, mx: 1.5 }}>
+            Easy
+          </Button>
+          <Button href="#" variant="outlined" color="primary" sx={{ my: 1, mx: 1.5 }}>
+            Medium
+          </Button>
+          <Button href="#" variant="outlined" color="error" sx={{ my: 1, mx: 1.5 }}>
+            Hard
+          </Button>
+        </Toolbar>
           <Container sx={{ py: 8 }} maxWidth="md">
-           
             <Typography
               component="h3"
               variant="h3"
@@ -113,7 +122,9 @@ class App extends React.Component {
               font=""
             >
             Which one is {this.capitalize(this.state.question.name)}? Streak: {this.state.streak}
+            
             </Typography>
+            
             <Grid container spacing={4}>
               {Object.keys(pokemon).map((key, index) => (
                 <Grid item key={index} xs={12} sm={6} md={4}>
@@ -125,6 +136,7 @@ class App extends React.Component {
                 </Grid>
               ))}
             </Grid>
+
           </Container>
         </header>
       

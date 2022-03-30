@@ -46,9 +46,10 @@
 }
 
 
-.MuiButton-root:hover {
-  background-color: white;
+.MuiButton-colorInherit:hover {
+  background-color: black;
 }
+
 
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
