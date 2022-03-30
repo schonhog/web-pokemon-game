@@ -24,11 +24,17 @@ class App extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      pokemon: {}
+      pokemon: {},
+      score: -1
     };
+    this.loadPokemon = this.loadPokemon.bind(this);
   }
   componentDidMount() {
-    Promise.all([1, 4, 7].map(id => 
+    this.loadPokemon()
+  }
+
+  loadPokemon(){
+    Promise.all([1, 2, 3].map(id => 
       fetch('https://pokeapi.co/api/v2/pokemon/' + (Math.floor(Math.random() * 898) + 1)).then(res => res.json()),
     ))
     .then(
@@ -40,9 +46,12 @@ class App extends React.Component {
           items[i]['name'] = res[i]['name']
           items[i]['sprite'] = res[i]['sprites']['front_default']
         }
+        console.log(this)
+        let temp = this.state.score + 1;
         this.setState({
           isLoaded: true,
-          pokemon: items
+          pokemon: items,
+          score: temp
         });
       },
       // Note: it's important to handle errors here
@@ -57,6 +66,10 @@ class App extends React.Component {
     )
   }
 
+  refreshPage() {
+    window.location.reload(false);
+  }
+
   capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -67,19 +80,19 @@ class App extends React.Component {
 
   render() {
     let pokemon = this.state.pokemon
-    console.log("Random", this.randomizePokemon(pokemon))
     let question = this.randomizePokemon(pokemon)
     if (question !== undefined){
       return (
         <header className="App-header">
           <Container sx={{ py: 8 }} maxWidth="md">
+           
             <Typography
               component="h1"
               variant="h2"
               align="center"
               color="white"
             >
-              Which one is {this.capitalize(question.name)}
+            Which one is {this.capitalize(question.name)}? Score: {this.state.score}
             </Typography>
             <Grid container spacing={4}>
               {Object.keys(pokemon).map((key, index) => (
@@ -87,11 +100,11 @@ class App extends React.Component {
                     <Avatar
                       src={pokemon[key].sprite}
                       sx={{ width: 256, height: 256 }}
+                      onClick={this.loadPokemon}
                     />
                 </Grid>
               ))}
             </Grid>
-            
           </Container>
         </header>
       
