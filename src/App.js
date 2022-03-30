@@ -91,6 +91,7 @@ class App extends React.Component {
                       component="img"
                       image={pokemon[key].sprite}
                       alt={pokemon[key].name}
+
                     />
                   </Card>
                 </Grid>
