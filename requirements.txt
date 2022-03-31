@@ -3,14 +3,17 @@ Requires;
 - sqlite - sudo apt-get install sqlite
 - python3
 
-Setup:
+Setup Instructions
+create virtual environment in ./env
 - python3 -m venv env
--- create virtual environment in ./env
+
+activates virtual envrionment
 - source env/bin/activate
--- activates virtual envrionment
+
+installs python modules
 - python3 -m pip install -e .
--- installs python modules
+
+runs app
 - uvicorn api:app --reload
--- runs app
 
 open browser and go to http://localhost:8000/cache?api_url=https://pokeapi.co/api/v2/pokemon/ditto
