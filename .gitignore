@@ -1,3 +1,8 @@
+# python venv
+env
+
+# sqlite
+sqlite.db
 
 # dependencies
 /node_modules
