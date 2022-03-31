@@ -9,6 +9,8 @@ create virtual environment in ./env
 
 activates virtual envrionment
 - source env/bin/activate
+if that fails try
+- source env/Scripts/activate
 
 installs python modules
 - python3 -m pip install -e .
